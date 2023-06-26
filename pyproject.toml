@@ -1,0 +1,21 @@
+[project]
+name = "fastapi-test"
+dynamic = ['version']
+dependencies = [
+    "uvicorn==0.22.0",
+    "fastapi==0.98.0",
+    "sqlalchemy-utils==0.41.1",
+    "pydantic[dotenv]==1.10.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "flake8",
+    "pyproject-flake8",
+    "bandit",
+    "pytest",
+]
+
+[project.scripts]
+fastapi-test = "fastapi_test.__main__:main"
