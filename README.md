@@ -1,15 +1,21 @@
 # FastAPI sample projet
 
+## Installation
+
+You just need to setup a virtualenv and install the package, it will install all needed dependency and let you work when done.
+
 ## Development
 
 ```bash
 pip install -e .[dev]
-fastapi-test run
+fastapi-test run --reload
 ```
 
 ## Settings
 
 You can manage settings with ".env" file at the root of the project for example. If you wanna change the filename/path, you can change it in the config.py file.
+
+**_NOTE:_** I need to update the documentation with the list of settings and how it works precisely.
 
 ## Structure
 
