@@ -1,4 +1,4 @@
-# FastAPI sample projet
+# FastAPI Sample Project
 
 ## Installation
 
