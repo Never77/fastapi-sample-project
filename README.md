@@ -30,7 +30,6 @@ I tried to keep the structure as standard as possible. In that way we have some 
 * crud
 
 
-
 routers: this folder contains all the code about the API endpoint that will be published by the app. All routers will finally be imported in the main app via include_router function call.
 
 models: this folder contains all code about object to store in database and how to do it.
@@ -48,14 +47,14 @@ Finally, we have the database.py file that implement the way to connect/use the 
 Import routers dynamically.
 
 ## Features List
-- [] SSO
-- [] Vault (Hashicorp Vault)
-- [] SSOT (Nautobot)
+- [ ] SSO
+- [ ] Vault (Hashicorp Vault)
+- [ ] SSOT (Nautobot)
 - [x] Cache (Redis)
-- [] Document Oriented Database (MongoDB)
-- [] Monitoring (Centreon)
-- [] Orchestration (Luigi/Prefect)
+- [ ] Document Oriented Database (MongoDB)
+- [ ] Monitoring (Centreon)
+- [ ] Orchestration (Luigi/Prefect)
 - [x] Relational Database (MySQL/PostgreSQL/SQLite)
-- [] GraphQL (strawberry) [Documentation for FastAPI](https://strawberry.rocks/docs/integrations/fastapi)
+- [x] GraphQL (strawberry) [Documentation for FastAPI](https://strawberry.rocks/docs/integrations/fastapi)
 - [x] Asynchronous request handling
-- [] TBD ?
+- [ ] TBD ?
