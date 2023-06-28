@@ -2,20 +2,36 @@
 name = "fastapi-test"
 dynamic = ['version']
 dependencies = [
-    "uvicorn==0.22.0",
+    "uvicorn[standard]==0.22.0",  # Better support for graphiql
     "fastapi==0.98.0",
     "sqlalchemy-utils==0.41.1",
     "pydantic[dotenv]==1.10.9",
+    "fastapi-redis-cache==0.2.5",
+    "prometheus-fastapi-instrumentator==6.0.0",
+    "aiosqlite==0.19.0",
+    "strawberry-graphql[fastapi]==0.190.0",
 ]
 
 [project.optional-dependencies]
 dev = [
     "black",
     "flake8",
-    "pyproject-flake8",
+    "flake8-pyproject",
     "bandit",
     "pytest",
+    "isort",
 ]
 
 [project.scripts]
 fastapi-test = "fastapi_test.__main__:main"
+
+[tool.black]
+line-length = 120
+target-version = ['py37', 'py38', 'py310', 'py311']
+
+[tool.isort]
+profile = "black"
+
+[tool.flake8]
+max-line-length = 120
+exclude = ".git,__pycache__,docs/source/conf.py,build,dist,.env,.venv,venv,env"

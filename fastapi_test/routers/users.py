@@ -1,27 +1,35 @@
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
-from fastapi_test.database import get_database
-from fastapi_test.crud import user as crud
 from typing import List
+from uuid import UUID
+
+from fastapi import APIRouter
+from fastapi_redis_cache import cache
+
+from fastapi_test.crud import user as crud
 from fastapi_test.schemas import users as schemas
-from pydantic import UUID4
 
-router = APIRouter(prefix='/users', tags=["users"])
+router = APIRouter(prefix="/users", tags=["users"])
 
-@router.get('/', response_model=List[schemas.User])
-def list_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_database)):
-    return crud.list_users(skip=skip, limit=limit, db=db)
 
-@router.post('/', response_model=schemas.User)
-def create_user(user: schemas.UserIn, db:Session = Depends(get_database)):
-    return crud.create_user(db=db, user=user)
+@cache(expire=300)
+@router.get("/", response_model=List[schemas.User])
+async def list_users(skip: int = 0, limit: int = 100):
+    return await crud.list_users(skip=skip, limit=limit)
 
-@router.get('/{id}', response_model=schemas.User)
-def get_user_by_id(id: UUID4, db: Session = Depends(get_database)):
-    return crud.get_user_by_id(db=db, id=id)
 
-@router.delete('/{id}', status_code=204)
-def delete_user_by_id(id: UUID4, db: Session = Depends(get_database)):
-    return crud.delete_user_by_id(id=id, db=db)
+@cache(expire=300)
+@router.get("/{id}", response_model=schemas.User)
+async def get_user_by_id(id: UUID):
+    return await crud.get_user_by_id(id=id)
+
+
+@router.post("/", response_model=schemas.User)
+async def create_user(user: schemas.UserIn):
+    return await crud.create_user(user=user)
+
+
+@router.delete("/{id}", status_code=204)
+async def delete_user_by_id(id: UUID):
+    return await crud.delete_user_by_id(id=id)
+
 
 # TODO: Need a route to update the user by id

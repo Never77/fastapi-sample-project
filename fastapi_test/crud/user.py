@@ -1,26 +1,33 @@
-from sqlalchemy.orm import Session
+from uuid import UUID
+
+from sqlalchemy import delete
+from sqlalchemy.future import select
+
 from fastapi_test import models, schemas
-import logging
-from uuid import uuid4
+from fastapi_test.database import get_session
 
 
-def list_users(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.User).offset(skip).limit(limit).all()
+async def list_users(skip: int = 0, limit: int = 100):
+    async with get_session() as session:
+        query = select(models.User).offset(skip).limit(limit)
+        return (await session.execute(query)).scalars().all()
 
-def create_user(db: Session, user: schemas.UserIn):
-    db_user = models.User(**user.dict())
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
 
-def get_user_by_id(db: Session, id : uuid4):
-    return db.query(models.User).filter(models.User.id == id).first()
+async def create_user(user: schemas.UserIn):
+    async with get_session() as session:
+        db_user = models.User(**user.dict())
+        session.add(db_user)
+        await session.commit()
+        return db_user
 
-def delete_user_by_id(id: uuid4, db: Session):
-    db_user = get_user_by_id(id=id, db=db)
-    db.delete(db_user)
-    logging.debug(f"Deleted user with ID {id}")
-    db.commit()
-    return id
-    # return db.delete(db_user).returning(models.User.id, models.User.name)  # If we wanna change strategy
+
+async def get_user_by_id(id: UUID):
+    async with get_session() as session:
+        query = await session.execute(select(models.User).where(models.User.id == id))
+        return query.scalar_one()
+
+
+async def delete_user_by_id(id: UUID):
+    async with get_session() as session:
+        query = delete(models.User).where(models.User.id == id)
+        return await session.execute(query)

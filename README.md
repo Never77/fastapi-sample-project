@@ -20,11 +20,16 @@ You can manage settings with ".env" file at the root of the project for example.
 ## Structure
 
 I tried to keep the structure as standard as possible. In that way we have some folders with different purpose :
+
+**_NOTE_** Set a tree here to list folders more clearly
+
 * routers 
 * models
 * schemas
 * exceptions
 * crud
+
+
 
 routers: this folder contains all the code about the API endpoint that will be published by the app. All routers will finally be imported in the main app via include_router function call.
 
@@ -41,3 +46,16 @@ Finally, we have the database.py file that implement the way to connect/use the 
 ## Next step
 
 Import routers dynamically.
+
+## Features List
+- [] SSO
+- [] Vault (Hashicorp Vault)
+- [] SSOT (Nautobot)
+- [x] Cache (Redis)
+- [] Document Oriented Database (MongoDB)
+- [] Monitoring (Centreon)
+- [] Orchestration (Luigi/Prefect)
+- [x] Relational Database (MySQL/PostgreSQL/SQLite)
+- [] GraphQL (strawberry) [Documentation for FastAPI](https://strawberry.rocks/docs/integrations/fastapi)
+- [x] Asynchronous request handling
+- [] TBD ?

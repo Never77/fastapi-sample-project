@@ -3,3 +3,7 @@
 **/__pycache__/
 **/*.pyc
 **/*.egg-info/
+
+# SQLite3
+**/*.db
+**/*.sqlite3

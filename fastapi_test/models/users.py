@@ -1,7 +1,10 @@
-from fastapi_test.database import Base
-from sqlalchemy import Column, String, Boolean
-from sqlalchemy_utils import UUIDType, EmailType
 from uuid import uuid4
+
+from sqlalchemy import Boolean, Column, String
+from sqlalchemy_utils import EmailType, UUIDType
+
+from fastapi_test.database import Base
+
 
 class User(Base):
     __tablename__ = "users"

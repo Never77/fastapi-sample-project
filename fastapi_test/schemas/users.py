@@ -1,13 +1,16 @@
-from pydantic import BaseModel, UUID4
-from uuid import uuid4
+from uuid import UUID
+
+from pydantic import BaseModel
+
 
 class UserIn(BaseModel):
     first_name: str
     last_name: str
     email: str
 
+
 class User(UserIn):
-    id: UUID4
+    id: UUID
     is_active: bool
 
     class Config:

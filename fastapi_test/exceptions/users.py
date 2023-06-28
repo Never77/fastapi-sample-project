@@ -1,6 +1,7 @@
-from fastapi.responses import JSONResponse
-from fastapi_test.routers import UserRouter as router
-import pydantic
+# import pydantic
+# from fastapi.responses import JSONResponse
+
+# from fastapi_test.routers import UserRouter as router
 
 # TODO: Need a way to make it works in an generic way
 
