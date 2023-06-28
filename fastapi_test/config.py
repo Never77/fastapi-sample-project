@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     host: str = "127.0.0.1"
     redis_url: str | None = None
     prometheus: bool = False
+    graphql: bool = False
 
     class Config:
         env_file = ".env"

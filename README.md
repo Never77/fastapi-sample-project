@@ -47,14 +47,16 @@ Finally, we have the database.py file that implement the way to connect/use the 
 Import routers dynamically.
 
 ## Features List
-- [ ] SSO
-- [ ] Vault (Hashicorp Vault)
-- [ ] SSOT (Nautobot)
-- [x] Cache (Redis)
-- [ ] Document Oriented Database (MongoDB)
-- [ ] Monitoring (Centreon)
-- [ ] Orchestration (Luigi/Prefect)
-- [x] Relational Database (MySQL/PostgreSQL/SQLite)
-- [x] GraphQL (strawberry) [Documentation for FastAPI](https://strawberry.rocks/docs/integrations/fastapi)
-- [x] Asynchronous request handling
+- [ ] SSO ([FastAPI-Security](https://jacobsvante.github.io/fastapi-security/))
+- [ ] Vault ([Hashicorp Vault](https://www.vaultproject.io))
+- [ ] SSOT ([Nautobot](https://github.com/nautobot/nautobot))
+- [x] Cache ([Redis](https://redis.io))
+- [ ] Document Oriented Database ([MongoDB](https://www.mongodb.com))
+- [ ] Monitoring ([Centreon](https://www.centreon.com/fr/))
+- [ ] Orchestration ([Luigi](https://luigi.readthedocs.io/en/stable/)/[Prefect](https://www.prefect.io))
+- [x] Relational Database ([MySQL](https://www.mysql.com/fr/)/[PostgreSQL](https://www.postgresql.org)/[SQLite](https://www.sqlite.org/index.html))
+- [x] GraphQL ([Strawberry](https://strawberry.rocks/docs/integrations/fastapi))
+- [x] Asynchronous request handling ([FastAPI Documentation](https://fastapi.tiangolo.com/async/))
+- [ ] Containerized ([Docker](https://www.docker.com))
+- [ ] Health check endpoint ([e.g: FastAPI Health](https://github.com/Kludex/fastapi-health))
 - [ ] TBD ?

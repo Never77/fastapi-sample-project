@@ -5,12 +5,15 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi_redis_cache import FastApiRedisCache
 from prometheus_fastapi_instrumentator import Instrumentator
-from strawberry import Schema
-from strawberry.fastapi import GraphQLRouter
 
 from fastapi_test.config import settings
 from fastapi_test.database import Base, engine
-from fastapi_test.graphql import Query
+
+if settings.graphql:
+    from strawberry import Schema
+    from strawberry.fastapi import GraphQLRouter
+    from fastapi_test.graphql import Query
+
 from fastapi_test.routers import UserRouter
 
 # TODO: make it more customizable by .env settings file
@@ -22,7 +25,8 @@ logging.basicConfig(
 
 app = FastAPI()
 app.include_router(UserRouter)
-app.include_router(GraphQLRouter(Schema(Query)), prefix="/graphql")
+if settings.graphql:
+    app.include_router(GraphQLRouter(Schema(Query)), prefix="/graphql")
 
 instrumentator = Instrumentator().instrument(app)
 
