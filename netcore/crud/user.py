@@ -3,8 +3,8 @@ from uuid import UUID
 from sqlalchemy import delete
 from sqlalchemy.future import select
 
-from fastapi_test import models, schemas
-from fastapi_test.database import get_session
+from netcore import models, schemas
+from netcore.database import get_session
 
 
 async def list_users(skip: int = 0, limit: int = 100):

@@ -1,7 +1,6 @@
 from functools import lru_cache
 from typing import List
 
-from fastapi_security import PermissionOverrides
 from pydantic import BaseSettings, Field
 
 
@@ -15,9 +14,6 @@ class Settings(BaseSettings):
     redis_url: str | None = None
     prometheus: bool = False
     graphql: bool = False
-    oidc_discovery_url: str | None = None  # None means disabled
-    oauth2_audiences: List[str] | None = None
-    permission_overrides: PermissionOverrides = {}
 
     class Config:
         env_file = ".env"

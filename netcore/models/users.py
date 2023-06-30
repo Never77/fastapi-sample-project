@@ -3,7 +3,7 @@ from uuid import uuid4
 from sqlalchemy import Boolean, Column, String
 from sqlalchemy_utils import EmailType, UUIDType
 
-from fastapi_test.database import Base
+from netcore.database import Base
 
 
 class User(Base):

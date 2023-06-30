@@ -3,8 +3,8 @@ from uuid import UUID
 
 import strawberry
 
-from fastapi_test import crud, schemas
-from fastapi_test.graphql.users import User
+from netcore import crud, schemas
+from netcore.graphql.users import User
 
 
 @strawberry.type

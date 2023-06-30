@@ -11,6 +11,21 @@ pip install -e .[dev]
 fastapi-test run --reload
 ```
 
+You can also leverage the full stack with the docker-compose.yml file.
+
+```bash 
+docker-compose up -d --build
+```
+
+When it's done you can go on the next links:
+- [NetCore](http://127.0.0.1:8000/docs)
+- [Nautobot](http://127.0.0.1:8082)
+- [Hashicorp Vault](http://127.0.0.1:8200)
+- [Mongo-Express](http://127.0.0.1:8081)
+- [Adminer](http://127.0.0.1:8080) 
+
+**_NOTE_** Adminer is used to manage database, Mongo Express to manage MongoDB, Vault to manage accounts, Nautobot is an SSOT used by the app.
+
 ## Settings
 
 You can manage settings with ".env" file at the root of the project for example. If you wanna change the filename/path, you can change it in the config.py file.
@@ -57,6 +72,6 @@ Import routers dynamically.
 - [x] Relational Database ([MySQL](https://www.mysql.com/fr/)/[PostgreSQL](https://www.postgresql.org)/[SQLite](https://www.sqlite.org/index.html))
 - [x] GraphQL ([Strawberry](https://strawberry.rocks/docs/integrations/fastapi))
 - [x] Asynchronous request handling ([FastAPI Documentation](https://fastapi.tiangolo.com/async/))
-- [ ] Containerized ([Docker](https://www.docker.com))
+- [x] Containerized ([Docker](https://www.docker.com))
 - [ ] Health check endpoint ([e.g: FastAPI Health](https://github.com/Kludex/fastapi-health))
 - [ ] TBD ?

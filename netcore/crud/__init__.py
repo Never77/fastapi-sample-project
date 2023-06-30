@@ -1,4 +1,4 @@
-from fastapi_test.crud.user import (
+from netcore.crud.user import (
     create_user,
     delete_user_by_id,
     get_user_by_id,
