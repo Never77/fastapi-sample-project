@@ -1,5 +1,5 @@
-from netcore.routers.users import router as UserRouter
 from netcore.config import settings
+from netcore.routers.users import router as UserRouter
 
 if settings.vault.url:
     from netcore.routers.secrets import router as SecretsRouter

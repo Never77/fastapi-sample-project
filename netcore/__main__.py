@@ -12,6 +12,7 @@ from netcore.database import Base, engine
 if settings.graphql:
     from strawberry import Schema
     from strawberry.fastapi import GraphQLRouter
+
     from netcore.graphql import Query
 
 if settings.vault.url:
@@ -20,10 +21,9 @@ if settings.vault.url:
 if settings.nautobot.url:
     from netcore.routers import HostsRouter
 
-from netcore.routers import UserRouter
-
 import importlib.metadata
-import json
+
+from netcore.routers import UserRouter
 
 # TODO: make it more customizable by .env settings file
 logging.basicConfig(
@@ -41,7 +41,7 @@ if settings.graphql:
 
 if settings.vault.url:
     app.include_router(SecretsRouter)
-    
+
 if settings.nautobot.url:
     app.include_router(HostsRouter)
 

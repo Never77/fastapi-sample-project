@@ -4,8 +4,9 @@ from uuid import UUID
 import strawberry
 
 from netcore import crud, models
-from netcore.graphql.users import User
 from netcore.graphql.hosts import Host
+from netcore.graphql.users import User
+
 
 @strawberry.type
 class Query:
@@ -17,7 +18,7 @@ class Query:
     async def user(self, id: UUID) -> User:
         user = await crud.get_user_by_id(id)
         return models.User(**user._asdict())
-    
+
     @strawberry.field
     async def hosts(self) -> List[Host]:
         return crud.list_hosts()
