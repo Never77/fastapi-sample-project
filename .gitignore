@@ -1,8 +1,13 @@
 .venv/
-.vscode/
+.env/
+venv/
+env/
 **/__pycache__/
 **/*.pyc
 **/*.egg-info/
+dist/
+sdist/
+build/
 
 # SQLite3
 **/*.db

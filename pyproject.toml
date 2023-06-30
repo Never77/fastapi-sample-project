@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=62.6", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "netcore"
 dynamic = ['version']  # Need to take a look on a light build system which manage that (flit for example)
@@ -19,6 +23,7 @@ dependencies = [
 dev = [
     "bandit",
     "black",
+    "build",
     "flake8-pyproject",
     "flake8",
     "isort",
@@ -27,6 +32,9 @@ dev = [
 
 [project.scripts]
 netcore = "netcore.__main__:main"
+
+[tool.setuptools_scm]
+root = "."
 
 [tool.black]
 line-length = 120

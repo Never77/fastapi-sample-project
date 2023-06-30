@@ -16,6 +16,8 @@ if settings.graphql:
 
 from netcore.routers import UserRouter
 
+import importlib.metadata
+
 # TODO: make it more customizable by .env settings file
 logging.basicConfig(
     level=getattr(logging, settings.log_level.upper()),
@@ -24,7 +26,7 @@ logging.basicConfig(
 )
 
 
-app = FastAPI()
+app = FastAPI(title="NetCore", version=importlib.metadata.version(__package__ or __name__))
 app.include_router(UserRouter)
 if settings.graphql:
     app.include_router(GraphQLRouter(Schema(Query)), prefix="/graphql")
