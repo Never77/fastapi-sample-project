@@ -14,9 +14,16 @@ if settings.graphql:
     from strawberry.fastapi import GraphQLRouter
     from netcore.graphql import Query
 
+if settings.vault.url:
+    from netcore.routers import SecretsRouter
+
+if settings.nautobot.url:
+    from netcore.routers import HostsRouter
+
 from netcore.routers import UserRouter
 
 import importlib.metadata
+import json
 
 # TODO: make it more customizable by .env settings file
 logging.basicConfig(
@@ -25,11 +32,18 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(name)s %(message)s",
 )
 
+print(settings)
 
 app = FastAPI(title="NetCore", version=importlib.metadata.version(__package__ or __name__))
 app.include_router(UserRouter)
 if settings.graphql:
     app.include_router(GraphQLRouter(Schema(Query)), prefix="/graphql")
+
+if settings.vault.url:
+    app.include_router(SecretsRouter)
+    
+if settings.nautobot.url:
+    app.include_router(HostsRouter)
 
 instrumentator = Instrumentator().instrument(app)
 

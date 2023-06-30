@@ -1,6 +1,3 @@
-from netcore.schemas.users import User, UserIn
+from netcore.schemas.users import User
 
-__all__ = (
-    "User",
-    "UserIn",
-)
+__all__ = ("User",)

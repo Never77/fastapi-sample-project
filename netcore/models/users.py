@@ -1,16 +1,17 @@
-from uuid import uuid4
+from uuid import UUID
 
-from sqlalchemy import Boolean, Column, String
-from sqlalchemy_utils import EmailType, UUIDType
-
-from netcore.database import Base
+from pydantic import BaseModel
 
 
-class User(Base):
-    __tablename__ = "users"
+class UserIn(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
 
-    id = Column(UUIDType, unique=True, primary_key=True, nullable=False, default=uuid4)
-    email = Column(EmailType, unique=True, nullable=False)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    is_active = Column(Boolean, nullable=False, default=True)
+
+class User(UserIn):
+    id: UUID
+    is_active: bool
+
+    class Config:
+        orm_mode = True

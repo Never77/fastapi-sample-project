@@ -5,4 +5,6 @@ from netcore.crud.user import (
     list_users,
 )
 
-__all__ = ("create_user", "list_users", "delete_user_by_id", "get_user_by_id")
+from netcore.crud.hosts import list_hosts
+
+__all__ = ("create_user", "list_users", "delete_user_by_id", "get_user_by_id", "list_hosts",)

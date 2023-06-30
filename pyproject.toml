@@ -17,6 +17,9 @@ dependencies = [
     "sqlalchemy-utils==0.41.1",
     "strawberry-graphql[fastapi]==0.190.0",
     "uvicorn[standard]==0.22.0",  # Better support for graphiql
+    "hvac==1.1.1",  # Official Hashicorp Vault client
+    "requests==2.31.0",
+    "pynautobot==1.5.0",
 ]
 
 [project.optional-dependencies]
