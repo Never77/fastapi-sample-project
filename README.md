@@ -22,7 +22,10 @@ When it's done you can go on the next links:
 - [Nautobot](http://127.0.0.1:8082)
 - [Hashicorp Vault](http://127.0.0.1:8200)
 - [Mongo-Express](http://127.0.0.1:8081)
-- [Adminer](http://127.0.0.1:8080) 
+- [Adminer](http://127.0.0.1:8080)
+- [Prefect](http://127.0.0.1:4200)
+- [MinIO](http://127.0.0.1:9000)
+- [MinIO Console](http://127.0.0.1:9001)
 
 **_NOTE_** Adminer is used to manage database, Mongo Express to manage MongoDB, Vault to manage accounts, Nautobot is an SSOT used by the app.
 
