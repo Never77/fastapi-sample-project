@@ -34,7 +34,7 @@ services:
       - PREFECT_UI_URL=http://127.0.0.0:4200/api
       - PREFECT_API_URL=http://127.0.0.1:4200/api
       - PREFECT_SERVER_API_HOST=0.0.0.0
-      - PREFECT_API_DATABASE_CONNECTION_URL=postgresql+asyncpg://postgres:postgres@database:5432/prefect
+      - PREFECT_API_DATABASE_CONNECTION_URL=postgresql+asyncpg://postgres:postgres@prefect-database:5432/prefect
       # Uncomment the following line if you want to use the 'S3 Bucket' storage block instead of the older 'S3' storage
       # - EXTRA_PIP_PACKAGES=prefect-aws
     ports:
@@ -47,7 +47,7 @@ services:
   prefect-agent:
     image: prefecthq/prefect:2.10.17-python3.11
     restart: always
-    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "agent", "start", "-q", "YOUR_WORK_QUEUE_NAME"]
+    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "agent", "start", "-q", "default"]
     environment:
       - PREFECT_API_URL=http://prefect-server:4200/api
 #       Use PREFECT_API_KEY if connecting the agent to Prefect Cloud
