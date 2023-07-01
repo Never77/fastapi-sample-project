@@ -17,5 +17,4 @@ def list_hosts():
 @router.get("/{id}", response_description="Get a host", response_model=Host)
 def get_host(id: UUID):
     host = ssot.client.dcim.devices.filter(id=id)[0]
-    print(host)
     return Host(id=host.id, name=host.name, status=host.status.value)

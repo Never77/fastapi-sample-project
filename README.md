@@ -64,7 +64,7 @@ Finally, we have the database.py file that implement the way to connect/use the 
 Import routers dynamically.
 
 ## Features List
-- [ ] SSO ([FastAPI-Security](https://jacobsvante.github.io/fastapi-security/))
+- [ ] SSO ([FastAPI-Security](https://jacobsvante.github.io/fastapi-security/)) # Work In Progress 
 - [x] Vault ([Hashicorp Vault](https://www.vaultproject.io))
 - [x] SSOT ([Nautobot](https://github.com/nautobot/nautobot))
 - [x] Cache ([Redis](https://redis.io))

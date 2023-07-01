@@ -6,20 +6,23 @@ build-backend = "setuptools.build_meta"
 name = "netcore"
 dynamic = ['version']  # Need to take a look on a light build system which manage that (flit for example)
 dependencies = [
-    "aiosqlite==0.19.0",
+    "aiosqlite==0.19.0",  # Async driver for SQLite3
     "asyncpg==0.27.0",  # Used to discuss with PostgreSQL database asynchronously
-    "fastapi-redis-cache==0.2.5",
+    "fastapi-redis-cache==0.2.5",  # Adds Redis cache handling
     "fastapi==0.98.0",
-    "prometheus-fastapi-instrumentator==6.0.0",
+    "prometheus-fastapi-instrumentator==6.0.0",  # Adds Prometheus with autmatic metrics
     # "psycopg2==2.9.6",  # Postgres driver if you don't want to be asynchronous between the app and the database
-    "pydantic[dotenv]==1.10.10",
-    "pydantic[email]==1.10.10",
-    "sqlalchemy-utils==0.41.1",
-    "strawberry-graphql[fastapi]==0.190.0",
+    "pydantic[dotenv]==1.10.10",  # To be able to give .env file 
+    "pydantic[email]==1.10.10",  # Adds the email validator for Pydantic
+    "sqlalchemy-utils==0.41.1",  # Adds types for sqlAlchemy
+    "strawberry-graphql[fastapi]==0.190.0",  # Adds graphql 
     "uvicorn[standard]==0.22.0",  # Better support for graphiql
     "hvac==1.1.1",  # Official Hashicorp Vault client
     "requests==2.31.0",
-    "pynautobot==1.5.0",
+    "pynautobot==1.5.0",  # Nautobot client
+    "authlib==1.2.1",  # SSO handling
+    "httpx==0.24.1",  # provide client for making async requests
+    "itsdangerous==2.1.2",  # Session middleware needs this
 ]
 
 [project.optional-dependencies]

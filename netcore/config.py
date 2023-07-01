@@ -1,8 +1,18 @@
 from functools import lru_cache
 from pathlib import Path
-
+from pydantic import SecretStr
 from pydantic import AnyHttpUrl, BaseSettings, Field
 
+class OAuth2Settings(BaseSettings):
+    
+    client_id: str = None
+    client_secret: SecretStr = None
+    oidc_discovery_url: AnyHttpUrl = None  # without the .well-known/openid-configuration
+    scopes: str = "openid email profile"
+    
+    class Config:
+        env_file = ".env"
+        env_prefix = "netcore_oauth2_"
 
 class VaultSettings(BaseSettings):
     url: AnyHttpUrl | None = None
@@ -38,6 +48,8 @@ class Settings(BaseSettings):
     graphql: bool = False
     vault: VaultSettings = VaultSettings()
     nautobot: NautobotSettings = NautobotSettings()
+    oauth2: OAuth2Settings = OAuth2Settings()
+    secret_key: str = None
 
     class Config:
         env_file = ".env"

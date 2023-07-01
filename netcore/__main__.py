@@ -5,7 +5,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi_redis_cache import FastApiRedisCache
 from prometheus_fastapi_instrumentator import Instrumentator
-
+from starlette.middleware.sessions import SessionMiddleware
 from netcore.config import settings
 from netcore.database import Base, engine
 
@@ -21,6 +21,9 @@ if settings.vault.url:
 if settings.nautobot.url:
     from netcore.routers import HostsRouter
 
+if settings.oauth2.oidc_discovery_url:
+    from netcore.routers import AuthRouter
+
 import importlib.metadata
 
 from netcore.routers import UserRouter
@@ -32,9 +35,8 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(name)s %(message)s",
 )
 
-print(settings)
-
 app = FastAPI(title="NetCore", version=importlib.metadata.version(__package__ or __name__))
+app.add_middleware(SessionMiddleware, secret_key=settings.secret_key)
 app.include_router(UserRouter)
 if settings.graphql:
     # TODO: endpoint to handle GQL queries by API or check if it handles yet
@@ -49,6 +51,9 @@ if settings.vault.url:
 
 if settings.nautobot.url:
     app.include_router(HostsRouter)
+    
+if settings.oauth2.oidc_discovery_url:
+    app.include_router(AuthRouter)
 
 instrumentator = Instrumentator().instrument(app)
 

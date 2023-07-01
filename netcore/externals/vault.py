@@ -42,7 +42,6 @@ class HashicorpVault(APIBackend):
         result = []
         for key in response.get('data').get('keys'):
             response = self.client.secrets.kv.v2.read_secret_version(mount_point=mount_point, path=key, version=1)
-            print(response)
             for k,v in response.get('data').get('data').items():
                 result.append(Account(username=k, password=v ))
         return result
