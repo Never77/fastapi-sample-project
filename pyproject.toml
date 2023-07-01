@@ -23,6 +23,8 @@ dependencies = [
     "authlib==1.2.1",  # SSO handling
     "httpx==0.24.1",  # provide client for making async requests
     "itsdangerous==2.1.2",  # Session middleware needs this
+    "celery==5.3.1",
+    "motor==3.2.0",  # MongoDB async driver
 ]
 
 [project.optional-dependencies]

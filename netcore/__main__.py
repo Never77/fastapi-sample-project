@@ -24,6 +24,12 @@ if settings.nautobot.url:
 if settings.oauth2.oidc_discovery_url:
     from netcore.routers import AuthRouter
 
+if settings.celery.broker_url:
+    from netcore.routers import TasksRouter
+    
+if settings.mongodb_url:
+    from netcore.routers import PostsRouter
+
 import importlib.metadata
 
 from netcore.routers import UserRouter
@@ -35,7 +41,14 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(name)s %(message)s",
 )
 
-app = FastAPI(title="NetCore", version=importlib.metadata.version(__package__ or __name__))
+app = FastAPI(
+    title="NetCore",
+    version=importlib.metadata.version(__package__ or __name__),
+    contact={
+        "name": "Deadpoolio the Amazing",
+        "email": "dp@x-force.example.com"
+    }
+)
 app.add_middleware(SessionMiddleware, secret_key=settings.secret_key)
 app.include_router(UserRouter)
 if settings.graphql:
@@ -54,6 +67,12 @@ if settings.nautobot.url:
     
 if settings.oauth2.oidc_discovery_url:
     app.include_router(AuthRouter)
+
+if settings.celery.broker_url:
+    app.include_router(TasksRouter)
+    
+if settings.mongodb_url:
+    app.include_router(PostsRouter)
 
 instrumentator = Instrumentator().instrument(app)
 

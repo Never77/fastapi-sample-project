@@ -35,6 +35,14 @@ class NautobotSettings(BaseSettings):
         env_file = ".env"
         env_prefix = "netcore_nautobot_"
 
+class CelerySettings(BaseSettings):
+    
+    broker_url: str
+    result_backend: str
+    
+    class Config:
+        env_file = ".env"
+        env_prefix = "netcore_celery_"
 
 class Settings(BaseSettings):
     database_url: str | None = None
@@ -50,6 +58,8 @@ class Settings(BaseSettings):
     nautobot: NautobotSettings = NautobotSettings()
     oauth2: OAuth2Settings = OAuth2Settings()
     secret_key: str = None
+    celery : CelerySettings = CelerySettings()
+    mongodb_url: str
 
     class Config:
         env_file = ".env"

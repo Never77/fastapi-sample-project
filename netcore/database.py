@@ -1,12 +1,13 @@
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
-
+from bson import ObjectId
 from sqlalchemy import inspect
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy.orm import sessionmaker
 
 from netcore.config import settings
+import motor.motor_asyncio
 
 engine = create_async_engine(settings.database_url, future=True, echo=True)
 async_session = sessionmaker(
@@ -44,3 +45,25 @@ async def get_session() -> AsyncGenerator[AsyncSession, None]:
                 yield session
             finally:
                 await session.close()
+
+client = motor.motor_asyncio.AsyncIOMotorClient(settings.mongodb_url)
+mongodb = client.netcore  # it is the database name right here
+
+class PyObjectId(ObjectId):
+    """
+    MongoDB stores objects as BSON, ObjectId let us convert it as JSON dict easily with Python.
+    This class allow us to use ObjectId stored in MongoDB as Pydantic Field.
+    """
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+    
+    @classmethod
+    def validate(cls, v):
+        if not ObjectId.is_valid(v):
+            raise ValueError("Invalid objectid")
+        return ObjectId(v)
+    
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        field_schema.update(type="string")
