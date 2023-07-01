@@ -65,8 +65,8 @@ Import routers dynamically.
 
 ## Features List
 - [ ] SSO ([FastAPI-Security](https://jacobsvante.github.io/fastapi-security/))
-- [ ] Vault ([Hashicorp Vault](https://www.vaultproject.io))
-- [ ] SSOT ([Nautobot](https://github.com/nautobot/nautobot))
+- [x] Vault ([Hashicorp Vault](https://www.vaultproject.io))
+- [x] SSOT ([Nautobot](https://github.com/nautobot/nautobot))
 - [x] Cache ([Redis](https://redis.io))
 - [ ] Document Oriented Database ([MongoDB](https://www.mongodb.com))
 - [ ] Monitoring ([Centreon](https://www.centreon.com/fr/))
