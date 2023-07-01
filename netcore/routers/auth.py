@@ -17,4 +17,4 @@ async def login_via_sso(request: Request):
 async def authorize_gaap(request: Request):
     token = await gaap.authorize_access_token(request)
     # do something with the token and userinfo
-    return token  # Need to test this route with a DNS resolved server
+    return token['userinfo']  # Need to test this route with a DNS resolved server
