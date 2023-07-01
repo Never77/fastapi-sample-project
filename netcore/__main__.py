@@ -37,7 +37,12 @@ print(settings)
 app = FastAPI(title="NetCore", version=importlib.metadata.version(__package__ or __name__))
 app.include_router(UserRouter)
 if settings.graphql:
-    app.include_router(GraphQLRouter(Schema(Query)), prefix="/graphql")
+    # TODO: endpoint to handle GQL queries by API or check if it handles yet
+    app.include_router(
+        GraphQLRouter(Schema(Query)),
+        prefix="/graphql",
+        include_in_schema=False,  # Avoid GraphiQL appearing in the openapi.json document
+    )
 
 if settings.vault.url:
     app.include_router(SecretsRouter)

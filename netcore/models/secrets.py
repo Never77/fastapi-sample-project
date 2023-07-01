@@ -1,5 +1,5 @@
 from enum import Enum
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from pydantic import BaseModel, SecretStr
 
@@ -21,6 +21,6 @@ class Secret(BaseModel):
 
 
 class Account(BaseModel):
-    id: UUID
+    id: UUID = uuid4()
     username: str = None
     password: SecretStr = None

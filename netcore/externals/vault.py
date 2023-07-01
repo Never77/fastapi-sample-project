@@ -5,7 +5,7 @@ import hvac
 
 from netcore.config import settings
 from netcore.models import APIBackend
-from netcore.models.secrets import Secret
+from netcore.models.secrets import Secret, Account
 
 # TODO: make work this class
 
@@ -32,15 +32,28 @@ class HashicorpVault(APIBackend):
     def ping(self):
         return self.client.is_authenticated()
 
-    def list_secrets(self, path) -> List[Secret]:
-        return self.client.kv.list_secrets(mount_point="secret", path=path)
-
-    def get_secret(self, path: str) -> Secret:
-        self.client.is_authenticated()
+    def list_secrets(self, mount_point) -> List[Secret]:
+        if not self.client.is_authenticated():
+            raise Exception("Application is not authenticated by Vault")
         if self.client.sys.is_sealed():
             # TODO: Unseal it
             raise Exception("Vault is sealed")
-        return self.client.secrets.kv.v1.read_secret_version(mount_point="secret", path=path)
+        response = self.client.kv.list_secrets(mount_point=mount_point, path="/")
+        result = []
+        for key in response.get('data').get('keys'):
+            response = self.client.secrets.kv.v2.read_secret_version(mount_point=mount_point, path=key, version=1)
+            print(response)
+            for k,v in response.get('data').get('data').items():
+                result.append(Account(username=k, password=v ))
+        return result
+
+    def get_secret(self, mount_point: str, path: str) -> Secret:
+        if not self.client.is_authenticated():
+            raise Exception("Application is not authenticated by Vault")
+        if self.client.sys.is_sealed():
+            # TODO: Unseal it
+            raise Exception("Vault is sealed")
+        return self.client.secrets.kv.v2.read_secret_version(mount_point=mount_point, path=path)
 
 
 # HashicorpVault.update_forward_refs()

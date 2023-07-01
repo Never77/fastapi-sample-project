@@ -6,6 +6,7 @@ import strawberry
 from netcore import crud, models
 from netcore.graphql.hosts import Host
 from netcore.graphql.users import User
+from netcore.graphql.secrets import Account
 
 
 @strawberry.type
@@ -22,3 +23,7 @@ class Query:
     @strawberry.field
     async def hosts(self) -> List[Host]:
         return crud.list_hosts()
+    
+    @strawberry.field
+    async def accounts(self, mount_point: str) -> List[Account]:
+        return crud.list_secrets(mount_point=mount_point)
