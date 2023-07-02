@@ -4,6 +4,11 @@
 
 You just need to setup a virtualenv and install the package, it will install all needed dependency and let you work when done.
 
+## Architecture
+
+![architecture image](docs/Architecture.svg)
+<img src="docs/Architecture.svg">
+
 ## Development
 
 ```bash
