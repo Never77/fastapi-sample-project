@@ -53,14 +53,19 @@ You can manage settings with ".env" file at the root of the project for example.
 
 I tried to keep the structure as standard as possible. In that way we have some folders with different purpose :
 
-**_NOTE_** Set a tree here to list folders more clearly
+```
+.
+├───crud
+├───exceptions
+├───externals
+├───graphql
+├───models
+├───routers
+├───schemas
+├───security
+└───utils
 
-* routers 
-* models
-* schemas
-* exceptions
-* crud
-
+```
 
 routers: this folder contains all the code about the API endpoint that will be published by the app. All routers will finally be imported in the main app via include_router function call.
 
@@ -81,7 +86,7 @@ Finally, we have the database.py file that implement the way to connect/use the 
 - [ ] Standard error handling per router/concept.
 
 ## Features List
-- [-] SSO ([FastAPI-Security](https://jacobsvante.github.io/fastapi-security/)) # Need to be tested with an LDAP server 
+- [ ] SSO ([FastAPI-Security](https://jacobsvante.github.io/fastapi-security/)) # Need to be tested with an LDAP server 
 - [x] Vault ([Hashicorp Vault](https://www.vaultproject.io))
 - [x] SSOT ([Nautobot](https://github.com/nautobot/nautobot))
 - [x] Cache ([Redis](https://redis.io))
@@ -90,31 +95,37 @@ Finally, we have the database.py file that implement the way to connect/use the 
 - [x] GraphQL ([Strawberry](https://strawberry.rocks/docs/integrations/fastapi))
 - [x] Asynchronous request handling ([FastAPI Documentation](https://fastapi.tiangolo.com/async/))
 - [x] Containerized ([Docker](https://www.docker.com))
-- [x] Celery (BackgroudTasks) <!--- If we use Luigi as orchestrator, it's already done for orchestration part --->
+- [x] Celery (BackgroudTasks) 
+> If we use Luigi as orchestrator, it's already done for orchestration part
 - [ ] Orchestration ([Luigi](https://luigi.readthedocs.io/en/stable/) / [Prefect](https://www.prefect.io))
 - [ ] Health check endpoint ([e.g: FastAPI Health](https://github.com/Kludex/fastapi-health))
 - [ ] Monitoring ([Centreon](https://www.centreon.com/fr/))
-- [ ] LDAP Authentication <!--- Actually the endpoints are already there, just need to prove that the authentication works and implement the LDAP binding --->
+- [ ] LDAP Authentication 
+> Actually the endpoints are already there, just need to prove that the authentication works and implement the LDAP binding
 - [ ] TBD ?
 
 ## Resources
 
-https://docs.authlib.org/en/latest/client/fastapi.html
-https://fastapi.tiangolo.com/tutorial/bigger-applications/
-https://fastapi.tiangolo.com/advanced/async-sql-databases/
-https://docs.authlib.org/en/latest/client/starlette.html#starlette-client
-https://github.com/lepture/authlib/blob/master/authlib/integrations/starlette_client/apps.py
-https://docs.authlib.org/en/latest/specs/oidc.html#authlib.oidc.core.grants.OpenIDCode
-https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/
-https://linuxhint.com/python-ldap/
-https://hvac.readthedocs.io/en/stable/overview.html
-https://developer.hashicorp.com/vault/api-docs
-https://pynautobot.readthedocs.io/en/latest/index.html
-https://testdriven.io/blog/fastapi-and-celery/
-https://github.com/celery/celery/issues/4178#issuecomment-321070667
-https://github.com/testdrivenio/fastapi-celery/tree/master/project
-https://www.fastapitutorial.com/blog/fastapi-celery-getting-started/
-https://www.mongodb.com/developer/languages/python/python-quickstart-fastapi/
-https://strawberry.rocks/docs
-https://strawberry.rocks/docs/integrations/pydantic
-https://medium.com/arionkoder-engineering/fastapi-versioning-e9f86ace52ca
+- https://docs.authlib.org/en/latest/client/fastapi.html
+- https://fastapi.tiangolo.com/tutorial/bigger-applications/
+- https://fastapi.tiangolo.com/advanced/async-sql-databases/
+- https://docs.authlib.org/en/latest/client/starlette.html#starlette-client
+- https://github.com/lepture/authlib/blob/master/authlib/integrations/starlette_client/apps.py
+- https://docs.authlib.org/en/latest/specs/oidc.html#authlib.oidc.core.grants.OpenIDCode
+- https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/
+- https://linuxhint.com/python-ldap/
+- https://hvac.readthedocs.io/en/stable/overview.html
+- https://developer.hashicorp.com/vault/api-docs
+- https://pynautobot.readthedocs.io/en/latest/index.html
+- https://testdriven.io/blog/fastapi-and-celery/
+- https://github.com/celery/celery/issues/4178#issuecomment-321070667
+- https://github.com/testdrivenio/fastapi-celery/tree/master/project
+- https://www.fastapitutorial.com/blog/fastapi-celery-getting-started/
+- https://www.mongodb.com/developer/languages/python/python-quickstart-fastapi/
+- https://strawberry.rocks/docs
+- https://strawberry.rocks/docs/integrations/pydantic
+- https://medium.com/arionkoder-engineering/fastapi-versioning-e9f86ace52ca
+- https://microservices.io/patterns/observability/health-check-api.html
+- https://pypi.org/project/fastapi-healthcheck/
+- https://pypi.org/project/fastapi-health/
+- https://github.com/SolarEdgeTech/pyctuator#main-features
