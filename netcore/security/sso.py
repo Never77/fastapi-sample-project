@@ -8,7 +8,7 @@ oauth.register(
     client_id=settings.oauth2.client_id,
     client_secret=settings.oauth2.client_secret.get_secret_value(),
     server_metadata_url=settings.oauth2.oidc_discovery_url + "/.well-known/openid-configuration",
-    client_kwargs={'scope': settings.oauth2.scopes}
+    client_kwargs={"scope": settings.oauth2.scopes},
 )
 
-gaap = oauth.create_client('GAAP')
+gaap = oauth.create_client("GAAP")

@@ -2,17 +2,19 @@ from functools import lru_cache
 from pathlib import Path
 from pydantic import SecretStr
 from pydantic import AnyHttpUrl, BaseSettings, Field
+from enum import Enum
+
 
 class OAuth2Settings(BaseSettings):
-    
     client_id: str = None
     client_secret: SecretStr = None
     oidc_discovery_url: AnyHttpUrl = None  # without the .well-known/openid-configuration
     scopes: str = "openid email profile"
-    
+
     class Config:
         env_file = ".env"
         env_prefix = "netcore_oauth2_"
+
 
 class VaultSettings(BaseSettings):
     url: AnyHttpUrl | None = None
@@ -35,14 +37,27 @@ class NautobotSettings(BaseSettings):
         env_file = ".env"
         env_prefix = "netcore_nautobot_"
 
+
 class CelerySettings(BaseSettings):
-    
     broker_url: str
     result_backend: str
-    
+
     class Config:
         env_file = ".env"
         env_prefix = "netcore_celery_"
+
+
+class Algorithm(str, Enum):
+    HS256 = "HS256"
+    HS384 = "HS384"
+    HS512 = "HS512"
+    RS256 = "RS256"
+    RS384 = "RS384"
+    RS512 = "RS512"
+    ES256 = "ES256"
+    ES384 = "ES384"
+    ES512 = "ES512"
+
 
 class Settings(BaseSettings):
     database_url: str | None = None
@@ -58,8 +73,9 @@ class Settings(BaseSettings):
     nautobot: NautobotSettings = NautobotSettings()
     oauth2: OAuth2Settings = OAuth2Settings()
     secret_key: str = None
-    celery : CelerySettings = CelerySettings()
+    celery: CelerySettings = CelerySettings()
     mongodb_url: str
+    algorithm: Algorithm = "HS256"
 
     class Config:
         env_file = ".env"

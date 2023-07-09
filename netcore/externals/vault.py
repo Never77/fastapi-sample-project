@@ -40,10 +40,10 @@ class HashicorpVault(APIBackend):
             raise Exception("Vault is sealed")
         response = self.client.kv.list_secrets(mount_point=mount_point, path="/")
         result = []
-        for key in response.get('data').get('keys'):
+        for key in response.get("data").get("keys"):
             response = self.client.secrets.kv.v2.read_secret_version(mount_point=mount_point, path=key, version=1)
-            for k,v in response.get('data').get('data').items():
-                result.append(Account(username=k, password=v ))
+            for k, v in response.get("data").get("data").items():
+                result.append(Account(username=k, password=v))
         return result
 
     def get_secret(self, mount_point: str, path: str) -> Secret:

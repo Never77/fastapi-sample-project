@@ -1,74 +1,74 @@
 services:
-  prefect-database:
-    image: postgres
-    restart: always
-    environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=decinablesprewad
-      - POSTGRES_DB=prefect
-    volumes: 
-      - db:/var/lib/postgresql/data
+  # prefect-database:
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=root
+  #     - POSTGRES_PASSWORD=decinablesprewad
+  #     - POSTGRES_DB=prefect
+  #   volumes: 
+  #     - db:/var/lib/postgresql/data
     # profiles: ["server"]
   
   ### MinIO for flow storage
-  minio:
-    image: minio/minio:latest
-    entrypoint: ["minio", "server", "--address", "0.0.0.0:9000", "--console-address", "0.0.0.0:9001", "/data"]
-    volumes:
-      - "minio:/data"
-    ports:
-      - 9000:9000
-      - 9001:9001
-    environment:
-      - MINIO_ROOT_USER="root"
-      - MINIO_ROOT_PASSWORD="decinablesprewad"
-    # profiles: ["minio"]
+  # minio:
+  #   image: minio/minio:latest
+  #   entrypoint: ["minio", "server", "--address", "0.0.0.0:9000", "--console-address", "0.0.0.0:9001", "/data"]
+  #   volumes:
+  #     - "minio:/data"
+  #   ports:
+  #     - 9000:9000
+  #     - 9001:9001
+  #   environment:
+  #     - MINIO_ROOT_USER="root"
+  #     - MINIO_ROOT_PASSWORD="decinablesprewad"
+  #   # profiles: ["minio"]
   
   ### Prefect Server API and UI
-  prefect-server:
-    image: prefecthq/prefect:2.10.17-python3.11
-    restart: always
-    volumes:
-      - prefect:/root/.prefect
-    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "server", "start"]
-    environment:
-      # If you want to access Prefect Server from anywhere other than the Docker host machine, you will need to change
-      # PREFECT_UI_URL to match the external hostname/IP used to load the  UI in your web browser.
-      - PREFECT_UI_URL=http://127.0.0.0:4200/api
-      - PREFECT_API_URL=http://127.0.0.1:4200/api
-      - PREFECT_SERVER_API_HOST=0.0.0.0
-      - PREFECT_API_DATABASE_CONNECTION_URL=postgresql+asyncpg://root:decinablesprewad@prefect-database:5432/prefect
-      # Uncomment the following line if you want to use the 'S3 Bucket' storage block instead of the older 'S3' storage
-      # - EXTRA_PIP_PACKAGES=prefect-aws
-    ports:
-      - 4200:4200
-    depends_on:
-      - prefect-database
-    # profiles: ["server"]
+  # prefect-server:
+  #   image: prefecthq/prefect:2.10.17-python3.11
+  #   restart: always
+  #   volumes:
+  #     - prefect:/root/.prefect
+  #   entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "server", "start"]
+  #   environment:
+  #     # If you want to access Prefect Server from anywhere other than the Docker host machine, you will need to change
+  #     # PREFECT_UI_URL to match the external hostname/IP used to load the  UI in your web browser.
+  #     - PREFECT_UI_URL=http://127.0.0.0:4200/api
+  #     - PREFECT_API_URL=http://127.0.0.1:4200/api
+  #     - PREFECT_SERVER_API_HOST=0.0.0.0
+  #     - PREFECT_API_DATABASE_CONNECTION_URL=postgresql+asyncpg://root:decinablesprewad@prefect-database:5432/prefect
+  #     # Uncomment the following line if you want to use the 'S3 Bucket' storage block instead of the older 'S3' storage
+  #     # - EXTRA_PIP_PACKAGES=prefect-aws
+  #   ports:
+  #     - 4200:4200
+  #   depends_on:
+  #     - prefect-database
+  #   # profiles: ["server"]
 
   ## Prefect Agent
-  prefect-agent:
-    image: prefecthq/prefect:2.10.17-python3.11
-    restart: always
-    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "agent", "start", "-q", "default"]
-    environment:
-      - PREFECT_API_URL=http://prefect-server:4200/api
-#       Use PREFECT_API_KEY if connecting the agent to Prefect Cloud
-#     - PREFECT_API_KEY=YOUR_API_KEY
-    # profiles: ["agent"]
+#   prefect-agent:
+#     image: prefecthq/prefect:2.10.17-python3.11
+#     restart: always
+#     entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "agent", "start", "-q", "default"]
+#     environment:
+#       - PREFECT_API_URL=http://prefect-server:4200/api
+# #       Use PREFECT_API_KEY if connecting the agent to Prefect Cloud
+# #     - PREFECT_API_KEY=YOUR_API_KEY
+#     # profiles: ["agent"]
 
   ### Prefect CLI
-  prefect-cli:
-    image: prefecthq/prefect:2.10.17-python3.11
-    entrypoint: "bash"
-    working_dir: "/root/flows"
-    volumes:
-      - "./flows:/root/flows"
-    environment:
-      - PREFECT_API_URL=http://server:4200/api
-#       Use PREFECT_API_KEY to use the CLI to interact with Prefect Cloud
-#     - PREFECT_API_KEY=YOUR_API_KEY
-    # profiles: ["cli"]
+#   prefect-cli:
+#     image: prefecthq/prefect:2.10.17-python3.11
+#     entrypoint: "bash"
+#     working_dir: "/root/flows"
+#     volumes:
+#       - "./flows:/root/flows"
+#     environment:
+#       - PREFECT_API_URL=http://server:4200/api
+# #       Use PREFECT_API_KEY to use the CLI to interact with Prefect Cloud
+# #     - PREFECT_API_KEY=YOUR_API_KEY
+#     # profiles: ["cli"]
 
   mongo:
     image: mongo
@@ -195,26 +195,26 @@ services:
     cap_add: # need to check what is this shit
       - IPC_LOCK
 
-  netcore:
-    build: .
-    depends_on:
-      - postgres
-      - redis
-      - nautobot
-      - vault
-      - mongo
-    ports:
-      - 8000:8000
-    environment:
-      - "DATABASE_URL=postgresql+asyncpg://root:decinablesprewad@postgres/netcore"
-      - "ENVIRONMENT=development"
-      - "LOG_LEVEL=debug"
-      - "PORT=8000"  # In case of 0, it will take the first free port
-      - "ACCESS_LOG=true"
-      - "HOST=0.0.0.0"
-      - "REDIS_URL=redis://:decinablesprewad@redis:6379/0"
-      - "PROMETHEUS=true"
-      - "GRAPHQL=true"
+  # netcore:
+  #   build: .
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #     - nautobot
+  #     - vault
+  #     - mongo
+  #   ports:
+  #     - 8000:8000
+  #   environment:
+  #     - "DATABASE_URL=postgresql+asyncpg://root:decinablesprewad@postgres/netcore"
+  #     - "ENVIRONMENT=development"
+  #     - "LOG_LEVEL=debug"
+  #     - "PORT=8000"  # In case of 0, it will take the first free port
+  #     - "ACCESS_LOG=true"
+  #     - "HOST=0.0.0.0"
+  #     - "REDIS_URL=redis://:decinablesprewad@redis:6379/0"
+  #     - "PROMETHEUS=true"
+  #     - "GRAPHQL=true"
 
 volumes:
   cache:

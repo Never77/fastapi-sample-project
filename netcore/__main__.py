@@ -26,7 +26,7 @@ if settings.oauth2.oidc_discovery_url:
 
 if settings.celery.broker_url:
     from netcore.routers import TasksRouter
-    
+
 if settings.mongodb_url:
     from netcore.routers import PostsRouter
 
@@ -44,10 +44,7 @@ logging.basicConfig(
 app = FastAPI(
     title="NetCore",
     version=importlib.metadata.version(__package__ or __name__),
-    contact={
-        "name": "Deadpoolio the Amazing",
-        "email": "dp@x-force.example.com"
-    }
+    contact={"name": "Deadpoolio the Amazing", "email": "dp@x-force.example.com"},
 )
 app.add_middleware(SessionMiddleware, secret_key=settings.secret_key)
 app.include_router(UserRouter)
@@ -64,13 +61,13 @@ if settings.vault.url:
 
 if settings.nautobot.url:
     app.include_router(HostsRouter)
-    
+
 if settings.oauth2.oidc_discovery_url:
     app.include_router(AuthRouter)
 
 if settings.celery.broker_url:
     app.include_router(TasksRouter)
-    
+
 if settings.mongodb_url:
     app.include_router(PostsRouter)
 
@@ -84,7 +81,7 @@ async def startup():
         redis_cache.init(
             host_url=settings.redis_url,
             prefix="FastAPI-Cache",  # Prefix of the keys you want in Redis
-            # response_header="X-FastAPI-Cache",  # Header you want to provide when it's cached
+            response_header="X-NetCore-Cache",  # Header you want to provide when it's cached
             # ignore_arg_types=[Request, Response, Session]
         )
     if settings.prometheus:
