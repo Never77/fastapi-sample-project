@@ -76,6 +76,7 @@ class Settings(BaseSettings):
     celery: CelerySettings = CelerySettings()
     mongodb_url: str
     algorithm: Algorithm = "HS256"
+    access_token_expire_minutes: int = 15
 
     class Config:
         env_file = ".env"
